@@ -16,9 +16,17 @@ const Login = (props) => {
 
   useEffect(()=>{
     // console.log('mount')
+  let timerid = setTimeout(() => {
+    console.log('on each keystroke pause')
     setFormIsValid(
-     enteredEmail.includes('@') && enteredPassword.trim().length > 6 &&  enterCollegeName.trim().length > 0
-    );
+      enteredEmail.includes('@') && enteredPassword.trim().length > 6 &&  enterCollegeName.trim().length > 0
+     ); 
+  }, 5000);
+    return(()=> {
+      // past Effect will distroy and return a cleanup function
+      console.log('cleanup function will execute before the useEffect on each update')
+      clearTimeout(timerid)
+    })   
   },[enteredEmail, enteredPassword,enterCollegeName])
 
   const emailChangeHandler = (event) => {
